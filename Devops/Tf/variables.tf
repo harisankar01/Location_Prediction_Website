@@ -7,3 +7,6 @@ variable "auth_key" {
 variable "user_pwd" {
   sensitive = true
 }
+variable "my_ip" {
+  sensitive = true
+}

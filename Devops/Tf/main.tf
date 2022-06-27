@@ -28,32 +28,31 @@ resource "linode_database_mongodb" "Database" {
   engine_id    = "mongodb/4.4.10"
   region       = "ap-west"
   type         = "g6-nanode-1"
-  allow_list   = ["${linode_instance.front_back_ends.1.ip_address}", "${linode_instance.front_back_ends.0.ip_address}"]
+  allow_list   = ["${linode_instance.front_back_ends.1.ip_address}", "${linode_instance.front_back_ends.0.ip_address}", var.my_ip]
   cluster_size = 1
 }
 resource "linode_firewall" "backend_firewall" {
   label = "Flask_backend_firewall"
-
   inbound {
     label    = "allow-frontend"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = ["80", "443"]
-    ipv4     = ["${linode_instance.front_back_ends.0.ip_address}"]
+    ports    = "80,443"
+    ipv4     = ["${linode_instance.front_back_ends.0.ip_address}", var.my_ip]
   }
 
   inbound_policy = "ACCEPT"
 
   outbound {
-    label    = "allow-front,db_ends"
+    label    = "allow-front_db_ends"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = ["80", "443"]
+    ports    = "80,443"
     ipv4     = ["0.0.0.0/0"]
     ipv6     = ["::/0"]
   }
 
   outbound_policy = "ACCEPT"
 
-  linodes = ["${linode_instance.front_back_ends.1.ip_address}"]
+  linodes = ["${linode_instance.front_back_ends.1.id}"]
 }
