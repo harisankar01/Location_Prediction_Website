@@ -2,10 +2,12 @@ import React,{useState,useRef} from 'react';
 
 
 function App() {
-
- const [Image, setImage] = useState<string>("")
-const [Prediction, setPrediction] = useState("")  
-
+let final_array=new Array()
+const [Prediction, setPrediction] = useState<Array<number>>()
+if(Prediction){
+  let few:number[]=Prediction.filter((a:number)=>(a>0.6))
+  few.map((e:number)=>(console.log(e)))
+}
     let formdata:FormData;
   const CaptureFile=(e: React.ChangeEvent<HTMLInputElement>)=>{
     if(e.target.files && e.target.files.length>0){
@@ -13,7 +15,6 @@ const [Prediction, setPrediction] = useState("")
       formdata = new FormData();
       formdata.append('file', file);
       formdata.append('Name', "image_tobe_predicted");
-      console.log(formdata);
     }
   }
     const Predict=async()=>{
@@ -21,15 +22,39 @@ const [Prediction, setPrediction] = useState("")
       method:"POST",
       body: formdata
       });
-      const result=await prediction.json()
-      setPrediction(result);
-      console.log(result);
-      
+      let result:string=await prediction.json()
+      const sub=result.substring(3,result.length-3)
+      const predictions:string[]=sub.split(",")
+      predictions.forEach(str => {
+      final_array.push(Number(str));
+      });
+      setPrediction(final_array)
     }
   return (
     <div className="Starter">
     <input type='file' accept="image/*" name='loc' onChange={CaptureFile}/>
     <button type='button' onClick={Predict}></button>
+    {Prediction?(
+      <>
+      {
+      (Prediction.filter((a:number)=>(a>0.65))).map((num:number)=>{
+        return(
+            <h1>{num}</h1>
+        )
+      })
+      }
+      <blockquote>
+      That is alll
+      </blockquote>
+      </>
+    ):(
+      <>
+      <h2>
+        No data at the moment of time
+      </h2>
+      </>
+    )
+    }
     </div>
   );
 }

@@ -1,8 +1,11 @@
+import json
 from tkinter import Image
 from flask import Flask, jsonify, request
 import numpy as np
 from werkzeug.utils import secure_filename
 import io
+import pandas as pd
+from json import JSONEncoder
 import PIL.Image as Image
 import tensorflow as tf
 import tensorflow_hub as hub
@@ -33,7 +36,7 @@ def predict():
     image_bytes = image.read()
     image = Image.open(io.BytesIO(image_bytes))
     final_image = Image.new("RGB", IMAGE_SHAPE, (255, 255, 255))
-    final_image.paste(image, None, mask=image.split()[3])
+    final_image.paste(image, None, mask=image.split()[2])
     final_image = np.asarray(final_image)[None, ...]
     print(type(final_image))
     print("The shape of final image is " + str(final_image.shape))
@@ -43,11 +46,11 @@ def predict():
     # g.finalize()
     # shape = tf.TensorSpec(shape=[None, 321, 321, 3],
     #                       dtype=tf.float32, name=None)
-    result = model.get_input_info_dict()
+    file_names = model.get_input_info_dict()
     with tf.compat.v1.Session(graph=graph) as session:
-        resultss = session.run(model(final_image, as_dict=True))
-    print(resultss)
-    return jsonify("upload success")
+        result = session.run(model(final_image, as_dict=True))
+    results = json.dumps(result['predictions:logits'].tolist())
+    return jsonify(json.dumps(results))
 
 
 if __name__ == '__main__':
