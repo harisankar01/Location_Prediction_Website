@@ -4,12 +4,21 @@ from flask import Flask, jsonify, request
 import numpy as np
 from werkzeug.utils import secure_filename
 import io
-import pandas as pd
-from json import JSONEncoder
+from os import getenv
+from pymongo import MongoClient, errors
 import PIL.Image as Image
 import tensorflow as tf
 import tensorflow_hub as hub
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
+client = MongoClient(getenv("DB_URL"), 27017,
+                     username=getenv("DB_USERNAME"), password=getenv("DB_PASSWORD"))
+DB = getenv("DB_NAME")
+collection_name = getenv("DB_COLLECTION_NAME")
+
+data_base = client.admin
+collection = data_base['Places_to_predict']
 
 tf.compat.v1.disable_eager_execution()
 graph = tf.Graph()
@@ -21,7 +30,7 @@ IMAGE_SHAPE = (321, 321)
 
 @app.route('/', methods=["GET"])
 def index():
-    return jsonify("JKGF")
+    return jsonify("The home page")
 
 
 @app.route('/predict', methods=['POST'])
@@ -38,8 +47,6 @@ def predict():
     final_image = Image.new("RGB", IMAGE_SHAPE, (255, 255, 255))
     final_image.paste(image, None, mask=image.split()[2])
     final_image = np.asarray(final_image)[None, ...]
-    print(type(final_image))
-    print("The shape of final image is " + str(final_image.shape))
     # imggg = tf.image.resize(image, (321, 321), ,name=None)
     # with g.as_default():
     #     result = model([image], as_dict=True)
@@ -51,6 +58,29 @@ def predict():
         result = session.run(model(final_image, as_dict=True))
     results = json.dumps(result['predictions:logits'].tolist())
     return jsonify(json.dumps(results))
+
+
+@app.route('/db', methods=["POST"])
+def data():
+    predictions = request.get_data(cache=False)
+    data_predictions = json.loads(predictions)
+    # print("The client server info si", client.server_info())
+    predicted_locations = []
+    try:
+        print("server_info():", client.server_info())
+    except errors.ServerSelectionTimeoutError as err:
+        print("An error occured in database", err)
+    try:
+        for i in data_predictions['array']:
+            predicted_locations.append(collection.find_one(
+                {"id": str(i)}, {"name": 1, "_id": 0}))
+    except Exception as e:
+        print("AN exception occured", e)
+    # print(predicted_locations)
+    # print(location_array)
+    # json_locs = [json.dumps(doc, default=json_util.default)
+    #              for doc in location_array]
+    return jsonify(predicted_locations)
 
 
 if __name__ == '__main__':

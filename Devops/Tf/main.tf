@@ -28,7 +28,7 @@ resource "linode_database_mongodb" "Database" {
   engine_id    = "mongodb/4.4.10"
   region       = "ap-west"
   type         = "g6-nanode-1"
-  allow_list   = ["${linode_instance.front_back_ends.1.ip_address}", "${linode_instance.front_back_ends.0.ip_address}", var.my_ip]
+  allow_list   = ["${linode_instance.front_back_ends.1.ip_address}", "${linode_instance.front_back_ends.0.ip_address}", "0.0.0.0/0"]
   cluster_size = 1
 }
 resource "linode_firewall" "backend_firewall" {

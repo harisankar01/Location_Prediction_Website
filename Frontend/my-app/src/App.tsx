@@ -1,12 +1,14 @@
 import React,{useState,useRef} from 'react';
-
+interface loc{
+  name:string
+}
 
 function App() {
 let final_array=new Array()
 const [Prediction, setPrediction] = useState<Array<number>>()
+const [location_array, setlocation_array] = useState<Array<loc>>()
 if(Prediction){
-  let few:number[]=Prediction.filter((a:number)=>(a>0.6))
-  few.map((e:number)=>(console.log(e)))
+  Prediction.map((e:number)=>(console.log(e)))
 }
     let formdata:FormData;
   const CaptureFile=(e: React.ChangeEvent<HTMLInputElement>)=>{
@@ -25,23 +27,36 @@ if(Prediction){
       let result:string=await prediction.json()
       const sub=result.substring(3,result.length-3)
       const predictions:string[]=sub.split(",")
-      predictions.forEach(str => {
-      final_array.push(Number(str));
+      let problabilities:string[]=(predictions.filter((a:string)=>(parseFloat(a)>0.65))).sort((c,d)=>(parseFloat(d)-parseFloat(c)))
+      problabilities.forEach(str => {
+      final_array.push(Number(predictions.indexOf(str)));
       });
       setPrediction(final_array)
+      const prediction_array={
+        "array":final_array
+      }            //JSON.stringify(final_array)
+      const location=await fetch('/db',{
+        method:"POST",
+        body: JSON.stringify(prediction_array)
+      });
+      let display_results=await location.json()
+      setlocation_array(display_results)
     }
   return (
     <div className="Starter">
     <input type='file' accept="image/*" name='loc' onChange={CaptureFile}/>
     <button type='button' onClick={Predict}></button>
-    {Prediction?(
+    {location_array?(
       <>
       {
-      (Prediction.filter((a:number)=>(a>0.65))).map((num:number)=>{
+      (location_array.map((location:loc)=>{
         return(
-            <h1>{num}</h1>
+          <>
+            <h3>Location</h3>
+            <h1>{location.name}</h1>
+          </>
         )
-      })
+      }))
       }
       <blockquote>
       That is alll
