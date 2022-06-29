@@ -12,14 +12,15 @@ import tensorflow_hub as hub
 from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
+# Connect to mongodb on linode mongodb instance
 client = MongoClient(getenv("DB_URL"), 27017,
                      username=getenv("DB_USERNAME"), password=getenv("DB_PASSWORD"))
 DB = getenv("DB_NAME")
 collection_name = getenv("DB_COLLECTION_NAME")
-
+# Select database and collection
 data_base = client.admin
 collection = data_base['Places_to_predict']
-
+# Initialize model for prediction
 tf.compat.v1.disable_eager_execution()
 graph = tf.Graph()
 with tf.compat.v1.Session(graph=graph) as session:
@@ -43,20 +44,18 @@ def predict():
     if not file or not mime_file:
         return 'Bad upload!', 400
     image_bytes = image.read()
+# Preprocessing image to meet the size requirements of model
     image = Image.open(io.BytesIO(image_bytes))
     final_image = Image.new("RGB", IMAGE_SHAPE, (255, 255, 255))
     final_image.paste(image, None, mask=image.split()[2])
     final_image = np.asarray(final_image)[None, ...]
-    # imggg = tf.image.resize(image, (321, 321), ,name=None)
-    # with g.as_default():
-    #     result = model([image], as_dict=True)
-    # g.finalize()
-    # shape = tf.TensorSpec(shape=[None, 321, 321, 3],
-    #                       dtype=tf.float32, name=None)
+# Get metadata of file
     file_names = model.get_input_info_dict()
+# Perform prediction
     with tf.compat.v1.Session(graph=graph) as session:
         result = session.run(model(final_image, as_dict=True))
     results = json.dumps(result['predictions:logits'].tolist())
+# Return prediction as probabilites
     return jsonify(json.dumps(results))
 
 
@@ -64,10 +63,10 @@ def predict():
 def data():
     predictions = request.get_data(cache=False)
     data_predictions = json.loads(predictions)
-    # print("The client server info si", client.server_info())
     predicted_locations = []
     try:
-        print("server_info():", client.server_info())
+        # If connection is wrong, server_info() results in error
+        print("server_info:", client.server_info())
     except errors.ServerSelectionTimeoutError as err:
         print("An error occured in database", err)
     try:
@@ -76,12 +75,10 @@ def data():
                 {"id": str(i)}, {"name": 1, "_id": 0}))
     except Exception as e:
         print("AN exception occured", e)
-    # print(predicted_locations)
-    # print(location_array)
-    # json_locs = [json.dumps(doc, default=json_util.default)
-    #              for doc in location_array]
+# Returning predictions as places
     return jsonify(predicted_locations)
 
 
+# Server info
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

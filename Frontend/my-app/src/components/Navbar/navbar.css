@@ -1,0 +1,144 @@
+
+
+.app__navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:url("../../../public/blurry-gradient-haikei.svg");
+  background-position: center;
+  padding: 1rem 2rem;
+}
+
+
+.app__navbar-logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: rgb(89, 0, 255);
+  width: 125;
+}
+
+
+.app__navbar-links {
+  flex: 1;
+  display: flex;
+  border-right: 150px;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+}
+
+.app__navbar-links li h3 {
+  margin: 0 1rem;
+  cursor: pointer;
+  font-size: larger;
+  color: rgb(4, 4, 4);
+}
+.app__navbar-links li a{
+  text-decoration: none;
+}
+.app__navbar-links li h3:hover {
+  color: #133035dc;
+}
+
+.app__navbar-login {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.app__navbar-login a {
+  margin: 0 1rem;
+  text-decoration: none;
+  transition: .5s ease;
+}
+
+.app__navbar-login a:hover {
+  border-bottom: 1px solid #f9c404;
+}
+
+.app__navbar-login div {
+  width: 1px;
+  height: 30px;
+  background: #ffffff;
+}
+
+.app__navbar-smallscreen {
+  display: none;
+}
+
+.app__navbar-smallscreen_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000000;
+  transition: .5s ease;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.app__navbar-smallscreen_overlay .overlay__close {
+  font-size: 27px;
+  color: #1c9f98;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.app__navbar-smallscreen_links {
+  margin-top: 60px;
+  list-style: none;
+}
+
+.app__navbar-smallscreen_links li a{
+  margin: 5rem;
+  cursor: pointer;
+  color: #206d9d;
+  font-size: 2rem;
+  text-align: center;
+  font-family: 'Cormorant Upright', serif;
+}
+.app__navbar-smallscreen_links li a{
+  text-decoration: none;
+}
+.app__navbar-smallscreen_links li a:hover {
+  color: rgb(197, 219, 28);
+}
+
+@media screen and (min-width: 2000px) {
+  .app__navbar-logo {
+    color: rgb(26, 148, 255);
+    width: 210px;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .app__navbar-links {
+    display: none;
+  }
+
+  .app__navbar-smallscreen {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .app__navbar {
+    padding: 1rem;
+  }
+
+  .app__navbar-login {
+    display: none;
+  }
+
+  .app__navbar-logo  
+  {
+    color: aliceblue;
+    width: 150px;
+    font-size: small;
+  }
+}
