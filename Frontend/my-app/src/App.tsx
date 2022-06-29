@@ -26,9 +26,6 @@ const [resultBox, setresultBox] = useState<boolean>(false)
 const [location_array, setlocation_array] = useState<Array<loc>>()
 const [fomr_data, setfomr_data] = useState<FormData>()
 const image=useRef<HTMLInputElement>(null);
-// if(Prediction){
-//   Prediction.map((e:number)=>(console.log(e)))
-// }
 const setBox=(val:boolean):void=>{
   setresultBox(val);
 }

@@ -1,6 +1,6 @@
 
 
-.app__navbar {
+.navbar {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,7 @@
 }
 
 
-.app__navbar-logo {
+.navbar-title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 
 
-.app__navbar-links {
+.links {
   flex: 1;
   display: flex;
   border-right: 150px;
@@ -35,40 +35,40 @@
   font-size: larger;
   color: rgb(4, 4, 4);
 }
-.app__navbar-links li a{
+.links li a{
   text-decoration: none;
 }
-.app__navbar-links li h3:hover {
+.links li h3:hover {
   color: #133035dc;
 }
 
-.app__navbar-login {
+.end {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.app__navbar-login a {
+.end a {
   margin: 0 1rem;
   text-decoration: none;
   transition: .5s ease;
 }
 
-.app__navbar-login a:hover {
+.end a:hover {
   border-bottom: 1px solid #f9c404;
 }
 
-.app__navbar-login div {
+.end div {
   width: 1px;
   height: 30px;
   background: #ffffff;
 }
 
-.app__navbar-smallscreen {
+.mobile {
   display: none;
 }
 
-.app__navbar-smallscreen_overlay {
+.mobile_overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -80,7 +80,7 @@
   z-index: 5;
 }
 
-.app__navbar-smallscreen_overlay .overlay__close {
+.mobile_overlay .overlay__close {
   font-size: 27px;
   color: #1c9f98;
   cursor: pointer;
@@ -89,12 +89,12 @@
   right: 20px;
 }
 
-.app__navbar-smallscreen_links {
+.mobile_links {
   margin-top: 60px;
   list-style: none;
 }
 
-.app__navbar-smallscreen_links li a{
+.mobile_links li a{
   margin: 5rem;
   cursor: pointer;
   color: #206d9d;
@@ -102,40 +102,40 @@
   text-align: center;
   font-family: 'Cormorant Upright', serif;
 }
-.app__navbar-smallscreen_links li a{
+.mobile_links li a{
   text-decoration: none;
 }
-.app__navbar-smallscreen_links li a:hover {
+.mobile_links li a:hover {
   color: rgb(197, 219, 28);
 }
 
 @media screen and (min-width: 2000px) {
-  .app__navbar-logo {
+  .navbar-title {
     color: rgb(26, 148, 255);
     width: 210px;
   }
 }
 
 @media screen and (max-width: 1150px) {
-  .app__navbar-links {
+  .links {
     display: none;
   }
 
-  .app__navbar-smallscreen {
+  .mobile {
     display: flex;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .app__navbar {
+  .navbar {
     padding: 1rem;
   }
 
-  .app__navbar-login {
+  .end {
     display: none;
   }
 
-  .app__navbar-logo  
+  .navbar-title  
   {
     color: aliceblue;
     width: 150px;
