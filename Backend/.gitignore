@@ -1,5 +1,5 @@
 # Ignore env variables
-.env
-settings.py
-.flaskenv
-/__pycache__
+./.env
+./settings.py
+./.flaskenv
+/__pycache__/
