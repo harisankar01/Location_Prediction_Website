@@ -10,3 +10,20 @@ variable "user_pwd" {
 variable "my_ip" {
   sensitive = true
 }
+
+variable "db_password" {
+  sensitive = true
+}
+
+variable "db_username" {
+  sensitive = true
+}
+variable "db_url" {
+  sensitive = true
+}
+variable "collection_name" {
+  sensitive = true
+}
+variable "db_name" {
+  sensitivity = true
+}
