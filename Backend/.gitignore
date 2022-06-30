@@ -1,5 +1,13 @@
-# Ignore env variables
-./.env
-./settings.py
-./.flaskenv
-/__pycache__/
+instance/*
+!instance/.gitignore
+.webassets-cache
+.env
+
+### Flask.Python Stack ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
