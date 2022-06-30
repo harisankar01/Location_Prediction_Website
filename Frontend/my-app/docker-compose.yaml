@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     expose:
       - 8080
+      - 8000
     ports:
       - "8080:80"
     environment:

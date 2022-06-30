@@ -17,10 +17,29 @@ export const Wrapper = styled.div`
     justify-content: center;
     width:100%;
     margin: 0 auto;
+    img{
+      width: 40px;
+      height: 40px;
+    }
+    span{
+      margin-left: 30%;
+    }
     a{
         text-decoration: none;
         cursor: pointer;
     }
+  @media (max-width: 1000px) {
+    h2{
+      font-size: 16px;
+    }
+    span{
+      margin-left: 0%;
+    }
+    img{
+        width: 30px;
+      height: 30px;
+    }
+  }
 `;
 
 

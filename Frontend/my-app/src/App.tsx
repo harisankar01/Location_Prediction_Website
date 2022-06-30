@@ -48,6 +48,10 @@ let formdata:FormData=new FormData()
       console.log(formdata.entries().next);
       const prediction =await fetch('/predict',{
       method:"POST",
+      headers:{
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST'
+      },
       body: fomr_data
       });
       let result:string=await prediction.json()
@@ -62,6 +66,11 @@ let formdata:FormData=new FormData()
       }  
       const location=await fetch('/db',{
         method:"POST",
+        headers:{
+        'Access-Control-Allow-Origin': "*",
+        'Access-Control-Allow-Methods': "POST",
+        'Content-Type': 'application/json'
+        },
         body: JSON.stringify(prediction_array)
       });
       let display_results=await location.json()
