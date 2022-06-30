@@ -6,12 +6,6 @@ services:
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      - "DB_PASSWORD=${DB_PASSWORD}" 
-      - "DB_USERNAME=${DB_USERNAME}"
-      - "DB_URL=${DB_URL}"
-      - "DB_COLLECTION_NAME=${DB_COLLECTION_NAME}"
-      - "DB_NAME=${DB_NAME}"
     build: 
       context: .
       dockerfile: Dockerfile

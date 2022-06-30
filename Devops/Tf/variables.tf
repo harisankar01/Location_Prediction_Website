@@ -25,5 +25,5 @@ variable "collection_name" {
   sensitive = true
 }
 variable "db_name" {
-  sensitivity = true
+  sensitive = true
 }

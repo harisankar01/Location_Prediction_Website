@@ -11,8 +11,7 @@ provider "linode" {
   token = var.linode_personal_token
 }
 
-resource "linode_instance" "front_ends" {
-  count           = "1"
+resource "linode_instance" "front_end" {
   image           = "linode/ubuntu20.04"
   label           = "node-1"
   group           = "Website"
@@ -23,25 +22,7 @@ resource "linode_instance" "front_ends" {
   tags            = ["react"]
   stackscript_id  = 1020122
 }
-resource "linode_instance" "back_end" {
-  count           = "1"
-  image           = "linode/ubuntu20.04"
-  label           = "node-2"
-  group           = "Website"
-  region          = "ap-west"
-  type            = "g6-nanode-1"
-  authorized_keys = [var.auth_key]
-  root_pass       = var.user_pwd
-  tags            = ["flask"]
-  stackscript_id  = 1020123
-  stackscript_data = {
-    "db_url"          = var.db_url
-    "db_username"     = var.db_username
-    "db_password"     = var.db_password
-    "db_name"         = var.db_name
-    "collection_name" = var.collection_name
-  }
-}
+
 resource "linode_database_mongodb" "Database" {
   label        = "backend_db"
   engine_id    = "mongodb/4.4.10"
