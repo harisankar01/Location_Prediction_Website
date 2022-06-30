@@ -76,8 +76,3 @@ def data():
         print("AN exception occured", e)
 # Returning predictions as places
     return jsonify(predicted_locations)
-
-
-# Server info
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)

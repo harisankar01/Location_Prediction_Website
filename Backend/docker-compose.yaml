@@ -1,10 +1,11 @@
 version: '1.0'
 
 services:
-  backend:
+  flask_backend:
     container_name: flask_backend
+    restart: always
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
       - "DB_PASSWORD=${DB_PASSWORD}" 
       - "DB_USERNAME=${DB_USERNAME}"
@@ -14,3 +15,12 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    command: gunicorn --bind :8000 wsgi:app
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - flask_backend

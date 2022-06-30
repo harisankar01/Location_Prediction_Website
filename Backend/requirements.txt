@@ -7,3 +7,4 @@ tensorflow==2.9.1
 tensorflow-estimator==2.9.0
 tensorflow-hub==0.12.0
 tensorflow-io-gcs-filesystem==0.26.0
+gunicorn==20.1.0
