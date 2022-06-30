@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  react-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 8080
+    ports:
+      - "8080:80"
+    environment:
+      - CHOKIDAR_USEPOLLING=true

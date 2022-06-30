@@ -1,5 +1,4 @@
 import json
-from tkinter import Image
 from flask import Flask, jsonify, request
 import numpy as np
 from werkzeug.utils import secure_filename
@@ -15,8 +14,8 @@ app = Flask(__name__)
 # Connect to mongodb on linode mongodb instance
 client = MongoClient(getenv("DB_URL"), 27017,
                      username=getenv("DB_USERNAME"), password=getenv("DB_PASSWORD"))
-DB = getenv("DB_NAME")
-collection_name = getenv("DB_COLLECTION_NAME")
+DB_NAME = getenv("DB_NAME")
+DB_COLLECTION_NAME = getenv("DB_COLLECTION_NAME")
 # Select database and collection
 data_base = client.admin
 collection = data_base['Places_to_predict']
@@ -81,4 +80,4 @@ def data():
 
 # Server info
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
