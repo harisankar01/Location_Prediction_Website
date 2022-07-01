@@ -27,6 +27,11 @@ See frontend and backend folders respectively to view detailed documentation on 
 
 > You can read about the how deployment is implemented on this website in this [link](https://hariii.hashnode.dev/linode-native-location-prediction-webiste)
 
+The url to the live website is [something-amazing.live](http://something-amazing.live:8080/).
+
+# Images
+![Screenshot (34)](https://user-images.githubusercontent.com/90249023/176860379-dc5a9e48-265c-44ee-9bcc-5ec708302e85.png)
+
 # Attribution
 
 This project is attributed to [Linode](https://www.linode.com/) and [Hashnode](https://hashnode.com/) for the Linode X Hashnode Hackathon.
