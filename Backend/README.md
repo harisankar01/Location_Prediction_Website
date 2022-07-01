@@ -41,6 +41,8 @@ A **MongoDB** database is used to store the `name` and `id` of 98949 locations w
 
 The database has a total of 98949 documents. Each document has the following structure,
 
+![Screenshot (33)](https://user-images.githubusercontent.com/90249023/176859806-b3b31417-3ba6-4559-8be2-7717888c7de8.png)
+
 The index of high probability values obtained from the model is queried with the `id` in the database to find the name of the location. The **pymongo** package is used to connect and access the database.
 
 > The file that should be uploaded to the database are present in the `Machine learning files` folder.
