@@ -1,8 +1,8 @@
 # Location_Prediction_Website
 
-- A website that can be used to predict the landmarks or locations present present in a image.
-- This website uses machine learning to predict the location from a image.
-- This website can only predict images from ASIA since the model is fine tuned for ASIA.
+- A website that can be used to predict the landmarks or locations present in an image.
+- This website uses machine learning to predict the name of the location in the image.
+- This website can only predict images from ASIA since the model is fine-tuned for ASIA.
 
 # Tech Stack
 
@@ -14,7 +14,7 @@
 ## Backend
 
 - Flask
-- Mongodb
+- MongoDB
 
 ## Deployment
 
@@ -22,10 +22,10 @@
 - Terraform
 - Docker
 
-See the `Devops/Tf` folder to learn how to deploy this website in Linode cloud using **terraform**. The deployment process is completely automated.
-See frontend and backend folders respectively to view detailed documentations on how the website was developed.
+See the `DevOps/Tf` folder to learn how to deploy this website in the Linode cloud using **terraform**. The deployment process is completely automated.
+See frontend and backend folders respectively to view detailed documentation on how the website was developed.
 
-> You can read about the how deployment is implemented in this website in this [link](https://hariii.hashnode.dev/linode-native-location-prediction-webiste)
+> You can read about the how deployment is implemented on this website in this [link](https://hariii.hashnode.dev/linode-native-location-prediction-webiste)
 
 # Attribution
 
