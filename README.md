@@ -27,6 +27,8 @@ See frontend and backend folders respectively to view detailed documentation on 
 
 The url to the live website is [something-amazing.live](http://something-amazing.live:8080/).
 
+Check out the working of website on [Youtube](https://youtu.be/O7oZLA2wTuo)
+
 # Images
 ![Screenshot (34)](https://user-images.githubusercontent.com/90249023/176860379-dc5a9e48-265c-44ee-9bcc-5ec708302e85.png)
 
